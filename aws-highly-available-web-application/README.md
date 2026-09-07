@@ -65,8 +65,8 @@ The VPC contains:
 
 The multi-AZ design provides the foundation for high availability.
 
-![VPC] (./screenshots/01-vpc.png)
-![Subnets] (./screenshots/02-subnets.png)
+![VPC](./screenshots/01-vpc.png)
+![Subnets](./screenshots/02-subnets.png)
 
 ---
 
@@ -103,8 +103,8 @@ Instead, HTTP traffic is allowed only from the Application Load Balancer securit
 
 This provides an additional layer of security.
 
-![Security Group - Application Load Balancer] (./screenshots/03-security-groups-alb.png)
-![Security Group - Application Web Servers] (./screenshots/03-security-groups-ec2.png)
+![Security Group - Application Load Balancer](./screenshots/03-security-groups-alb.png)
+![Security Group - Application Web Servers](./screenshots/03-security-groups-ec2.png)
 
 ---
 
@@ -122,7 +122,7 @@ The web servers host a simple web application used to validate:
 
 The instances were initially created manually to validate the application before introducing Auto Scaling.
 
-![EC2 Web Servers] (./screenshots/04-ec2-instances.png)
+![EC2 Web Servers](./screenshots/04-ec2-instances.png)
 
 ---
 
@@ -151,7 +151,7 @@ Application Load Balancer
  +----> EC2 Instance AZ-B
 ```
 
-![Application Load Balancer] (./screenshots/05-alb.png)
+![Application Load Balancer](./screenshots/05-alb.png)
 
 ---
 
@@ -169,7 +169,7 @@ The target group performs health checks against the EC2 instances.
 
 Only healthy instances receive traffic.
 
-![Target Group and Health Checks] (./screenshots/06-target-group.png)
+![Target Group and Health Checks](./screenshots/06-target-group.png)
 
 ---
 
@@ -219,7 +219,7 @@ HA-Web-Server-02-High-CPU
 
 CloudWatch provides visibility into application server resource utilization and can be extended to support automated scaling policies.
 
-![CloudWatch Monitoring] (./screenshots/06-target-group.png)
+![CloudWatch Monitoring](./screenshots/06-target-group.png)
 
 ---
 
@@ -256,7 +256,7 @@ The Launch Template defines the configuration used when Auto Scaling creates new
 
 This provides consistency between instances and removes the need to manually configure every server.
 
-![Launch Template] (./screenshots/10-launch-template.png)
+![Launch Template](./screenshots/10-launch-template.png)
 
 ---
 
@@ -286,7 +286,7 @@ The Auto Scaling Group provides:
 * Self-healing capability
 * Foundation for future dynamic scaling
 
-![Auto Scaling Group] (./screenshots/11-auto-scaling-group.png)
+![Auto Scaling Group](./screenshots/11-auto-scaling-group.png)
 
 ---
 
