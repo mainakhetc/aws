@@ -28,6 +28,8 @@ The primary objectives of this project were to:
 
 The solution uses the following high-level architecture:
 
+![AWS Highly Available Web Architecture](./architecture/architecture-diagram.png)
+
 ```text
                          Internet
                             |
