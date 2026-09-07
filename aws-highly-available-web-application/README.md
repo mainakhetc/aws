@@ -19,8 +19,6 @@ The primary objectives of this project were to:
 * Configure security groups following least-privilege principles
 * Implement CloudWatch monitoring and SNS notifications
 * Create a reusable EC2 Launch Template
-* Document the architecture and implementation
-* Review AWS resource usage and cost considerations
 
 ---
 
@@ -46,7 +44,6 @@ The solution uses the following high-level architecture:
 | Amazon Machine Image      | Reusable EC2 server image                       |
 | Amazon CloudWatch         | Monitoring and alarms                           |
 | Amazon SNS                | Email notifications                             |
-| IAM                       | AWS resource permissions                        |
 | Amazon EBS                | EC2 persistent root volume storage              |
 
 ---
@@ -67,7 +64,8 @@ The multi-AZ design provides the foundation for high availability.
 
 ![VPC](./screenshots/01-vpc.png)
 ![Subnets](./screenshots/02-subnets.png)
-
+![Internet Gateway](./screenshots/03-igw.png)
+![Route Table](./screenshots/04-rt.png)
 ---
 
 # 2. Security Groups
@@ -75,8 +73,6 @@ The multi-AZ design provides the foundation for high availability.
 Two primary security groups were configured.
 
 ## Application Load Balancer Security Group
-
-`HA-ALB-SG`
 
 Inbound:
 
@@ -86,9 +82,9 @@ HTTP (80) → 0.0.0.0/0
 
 This allows internet users to reach the Application Load Balancer.
 
-## Web Server Security Group
+![ALB Security Group](./screenshots/05-alb-sg.png)
 
-`HA-Web-SG`
+## Web Server Security Group
 
 Inbound:
 
@@ -103,10 +99,7 @@ Instead, HTTP traffic is allowed only from the Application Load Balancer securit
 
 This provides an additional layer of security.
 
-![Security Group - Application Load Balancer](./screenshots/03-security-groups-alb.png)
-![Security Group - Application Web Servers](./screenshots/03-security-groups-ec2.png)
-
----
+![Web Server Security Group](./screenshots/06-ec2-sg.png)
 
 # 3. EC2 Web Servers
 
@@ -122,19 +115,29 @@ The web servers host a simple web application used to validate:
 
 The instances were initially created manually to validate the application before introducing Auto Scaling.
 
-![EC2 Web Servers](./screenshots/04-ec2-instances.png)
+![EC2 Web Servers](./screenshots/07-ec2-instances.png)
+![Web Server Config](./screenshots/10-web-server-config1.png)
+![Web Server Config](./screenshots/11-web-server-config2.png)
+![Web Server Config](./screenshots/12-web-app1.png)
+![Web Server Config](./screenshots/10-web-app2.png)
 
 ---
 
-# 4. Application Load Balancer
+# 4. Target Group and Health Checks
 
-An internet-facing Application Load Balancer named:
+A target group named was created for the web servers.
 
-```text
-HA-Web-ALB
-```
+The target group performs health checks against the EC2 instances.
 
-was created.
+Only healthy instances receive traffic.
+
+![Target Group and Health Checks](./screenshots/08-tg.png)
+
+---
+
+# 5. Application Load Balancer
+
+An internet-facing Application Load Balancer was created.
 
 The ALB receives HTTP requests from users and distributes them across healthy EC2 instances.
 
@@ -151,25 +154,7 @@ Application Load Balancer
  +----> EC2 Instance AZ-B
 ```
 
-![Application Load Balancer](./screenshots/05-alb.png)
-
----
-
-# 5. Target Group and Health Checks
-
-A target group named:
-
-```text
-HA-Web-TG
-```
-
-was created for the web servers.
-
-The target group performs health checks against the EC2 instances.
-
-Only healthy instances receive traffic.
-
-![Target Group and Health Checks](./screenshots/06-target-group.png)
+![Application Load Balancer](./screenshots/09-alb.png)
 
 ---
 
@@ -191,10 +176,7 @@ HA-Web-ALB
 Healthy EC2 Instance
 ```
 
-<!-- SCREENSHOT: ALB APPLICATION TEST
-File: screenshots/07-alb-testing.png
-Capture: Browser showing the application successfully loading through the ALB DNS name.
--->
+![Application Load Balancer](./screenshots/14-alb-web-app.png)
 
 ---
 
@@ -210,16 +192,9 @@ CPU Utilization > 70%
 
 for five minutes.
 
-The alarms created were:
-
-```text
-HA-Web-Server-01-High-CPU
-HA-Web-Server-02-High-CPU
-```
-
 CloudWatch provides visibility into application server resource utilization and can be extended to support automated scaling policies.
 
-![CloudWatch Monitoring](./screenshots/06-target-group.png)
+![CloudWatch Monitoring](./screenshots/15-cloudwatch.png)
 
 ---
 
@@ -227,36 +202,23 @@ CloudWatch provides visibility into application server resource utilization and 
 
 Amazon SNS was configured to send notifications when monitoring alarms are triggered.
 
-SNS topic:
-
-```text
-HA-Web-Alerts
-```
-
 An email subscription was configured and confirmed.
 
 This provides an operational notification mechanism for infrastructure events.
 
-<!-- SCREENSHOT: SNS
-File: screenshots/09-sns.png
-Capture: SNS topic showing the HA-Web-Alerts topic and confirmed subscription.
--->
+![CloudWatch Monitoring](./screenshots/16-sns.png)
 
 ---
 
 # 9. Launch Template
 
-A reusable EC2 Launch Template was created:
-
-```text
-HA-Web-Launch-Template
-```
+A reusable EC2 Launch Template was created
 
 The Launch Template defines the configuration used when Auto Scaling creates new EC2 instances.
 
 This provides consistency between instances and removes the need to manually configure every server.
 
-![Launch Template](./screenshots/10-launch-template.png)
+![Launch Template](./screenshots/17-launch-template.png)
 
 ---
 
