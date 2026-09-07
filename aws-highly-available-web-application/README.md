@@ -218,19 +218,14 @@ The Launch Template defines the configuration used when Auto Scaling creates new
 
 This provides consistency between instances and removes the need to manually configure every server.
 
-![Launch Template](./screenshots/17-launch-template.png)
+![AMI](./screenshots/17-ami.png)
+![Launch Template](./screenshots/18-launch-template.png)
 
 ---
 
 # 10. Auto Scaling Group
 
-An Auto Scaling Group named:
-
-```text
-HA-Web-ASG
-```
-
-was configured with:
+An Auto Scaling Group named was configured with:
 
 ```text
 Minimum capacity: 2
@@ -248,7 +243,9 @@ The Auto Scaling Group provides:
 * Self-healing capability
 * Foundation for future dynamic scaling
 
-![Auto Scaling Group](./screenshots/11-auto-scaling-group.png)
+![Auto Scaling Group](./screenshots/19-asg.png)
+![Auto Scaling Group Ec2 Instances](./screenshots/20-asg-ec2.png)
+![Auto Scaling Group Target Group](./screenshots/21-asg-tg.png)
 
 ---
 
@@ -278,14 +275,8 @@ The Auto Scaling Group successfully launched a replacement instance.
 
 This demonstrated the self-healing capability of the architecture.
 
-<!-- SCREENSHOT: ASG FAILOVER
-File: screenshots/12-asg-failover.png
-Capture: ASG Activity History showing the terminated instance and automatically launched replacement instance.
--->
-
-<!-- SCREENSHOT: HEALTHY TARGET AFTER FAILOVER
-Capture: Target Group showing the replacement instance becoming Healthy.
--->
+![ASG Failover](./screenshots/22-asg-failover.png)
+![ASG Failover Target Group](./screenshots/23-asg-failover-tg.png)
 
 ---
 
@@ -298,7 +289,6 @@ Capture: Target Group showing the replacement instance becoming Healthy.
 | EC2 instance failure              | ASG replaces instance          | ✅ Passed |
 | Replacement instance health check | Instance becomes healthy       | ✅ Passed |
 | ALB after instance replacement    | Application remains available  | ✅ Passed |
-
 
 ---
 
