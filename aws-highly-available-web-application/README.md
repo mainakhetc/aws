@@ -30,39 +30,6 @@ The solution uses the following high-level architecture:
 
 ![AWS Highly Available Web Architecture](./architecture/architecture-diagram.png)
 
-```text
-                         Internet
-                            |
-                            |
-                    Internet Gateway
-                            |
-                            |
-                 Application Load Balancer
-                       HA-Web-ALB
-                            |
-                 -----------------------
-                 |                     |
-                 |                     |
-          Availability Zone A    Availability Zone B
-                 |                     |
-          Public Subnet A        Public Subnet B
-                 |                     |
-            EC2 Instance         EC2 Instance
-                 |                     |
-                 -----------+-----------
-                            |
-                     Auto Scaling Group
-                       HA-Web-ASG
-                            |
-                    Launch Template
-                HA-Web-Launch-Template
-```
-
-<!-- SCREENSHOT: ARCHITECTURE DIAGRAM
-File: architecture/architecture-diagram.png
-Capture: Final architecture diagram showing Internet → ALB → two AZs → EC2 instances → Auto Scaling Group.
--->
-
 ---
 
 ## ☁️ AWS Services Used
@@ -98,15 +65,8 @@ The VPC contains:
 
 The multi-AZ design provides the foundation for high availability.
 
-<!-- SCREENSHOT: VPC
-File: screenshots/01-vpc.png
-Capture: VPC console showing the project VPC and CIDR range.
--->
-
-<!-- SCREENSHOT: SUBNETS
-File: screenshots/02-subnets.png
-Capture: VPC → Subnets showing the two project subnets and their Availability Zones.
--->
+![VPC] (./screenshots/01-vpc.png)
+![Subnets] (./screenshots/02-subnets.png)
 
 ---
 
@@ -143,10 +103,8 @@ Instead, HTTP traffic is allowed only from the Application Load Balancer securit
 
 This provides an additional layer of security.
 
-<!-- SCREENSHOT: SECURITY GROUPS
-File: screenshots/03-security-groups.png
-Capture: Security group inbound rules showing ALB → Web Server relationship.
--->
+![Security Group - Application Load Balancer] (./screenshots/03-security-groups-alb.png)
+![Security Group - Application Web Servers] (./screenshots/03-security-groups-ec2.png)
 
 ---
 
@@ -164,10 +122,7 @@ The web servers host a simple web application used to validate:
 
 The instances were initially created manually to validate the application before introducing Auto Scaling.
 
-<!-- SCREENSHOT: EC2 INSTANCES
-File: screenshots/04-ec2-instances.png
-Capture: EC2 console showing the two running instances and their Availability Zones.
--->
+![EC2 Web Servers] (./screenshots/04-ec2-instances.png)
 
 ---
 
@@ -196,10 +151,7 @@ Application Load Balancer
  +----> EC2 Instance AZ-B
 ```
 
-<!-- SCREENSHOT: APPLICATION LOAD BALANCER
-File: screenshots/05-alb.png
-Capture: ALB details showing internet-facing scheme, listeners and Availability Zones.
--->
+![Application Load Balancer] (./screenshots/05-alb.png)
 
 ---
 
@@ -217,10 +169,7 @@ The target group performs health checks against the EC2 instances.
 
 Only healthy instances receive traffic.
 
-<!-- SCREENSHOT: TARGET GROUP
-File: screenshots/06-target-group.png
-Capture: Target group showing registered targets and their Healthy status.
--->
+![Target Group and Health Checks] (./screenshots/06-target-group.png)
 
 ---
 
@@ -270,10 +219,7 @@ HA-Web-Server-02-High-CPU
 
 CloudWatch provides visibility into application server resource utilization and can be extended to support automated scaling policies.
 
-<!-- SCREENSHOT: CLOUDWATCH
-File: screenshots/08-cloudwatch.png
-Capture: CloudWatch alarm showing CPU threshold and alarm configuration.
--->
+![CloudWatch Monitoring] (./screenshots/06-target-group.png)
 
 ---
 
@@ -310,10 +256,7 @@ The Launch Template defines the configuration used when Auto Scaling creates new
 
 This provides consistency between instances and removes the need to manually configure every server.
 
-<!-- SCREENSHOT: LAUNCH TEMPLATE
-File: screenshots/10-launch-template.png
-Capture: Launch Template details showing AMI, instance type, security group and configuration.
--->
+![Launch Template] (./screenshots/10-launch-template.png)
 
 ---
 
@@ -343,10 +286,7 @@ The Auto Scaling Group provides:
 * Self-healing capability
 * Foundation for future dynamic scaling
 
-<!-- SCREENSHOT: AUTO SCALING GROUP
-File: screenshots/11-auto-scaling-group.png
-Capture: ASG details showing minimum, desired and maximum capacity and the Availability Zones/subnets.
--->
+![Auto Scaling Group] (./screenshots/11-auto-scaling-group.png)
 
 ---
 
