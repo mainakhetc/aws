@@ -119,13 +119,13 @@ The instances were initially created manually to validate the application before
 ![Web Server Config](./screenshots/10-web-server-config1.png)
 ![Web Server Config](./screenshots/11-web-server-config2.png)
 ![Web Server Config](./screenshots/12-web-app1.png)
-![Web Server Config](./screenshots/10-web-app2.png)
+![Web Server Config](./screenshots/13-web-app2.png)
 
 ---
 
 # 4. Target Group and Health Checks
 
-A target group named was created for the web servers.
+A target group was created for the web servers.
 
 The target group performs health checks against the EC2 instances.
 
@@ -292,7 +292,7 @@ This demonstrated the self-healing capability of the architecture.
 
 ---
 
-# 16. Future Improvements
+# 13. Future Improvements
 
 A production-oriented version could be enhanced with:
 
