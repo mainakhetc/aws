@@ -15,29 +15,8 @@ server testing.
 
 ## Architecture
 
-``` text
-                           Internet
-                              |
-                              v
-                     Internet Gateway
-                              |
-                     VPC: 10.0.0.0/16
-                      /               \
-                     /                 \
-          Public Subnet             Private Subnet
-          10.0.1.0/24               10.0.2.0/24
-               |                          |
-        Public Route Table          Private Route Table
-               |
-         Security Group
-               |
-               v
-        EC2 Web Server
-           t3.micro
-               |
-          IAM Role
-               |
-          Apache HTTP
+![Terraform AWS Architecture](./architecture/architecture-diagram.png)
+
 ```
 
 > Note: The private subnet is included to demonstrate VPC network
