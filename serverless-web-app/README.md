@@ -30,17 +30,17 @@ The project demonstrates how an HTTP request can be processed without managing o
 
 ```text
 serverless-web-app/
-│
-├── README.md
+├── architecture/
+│   └── architecture-diagram.png
+├── Cleanup.md
 ├── lambda_function.py
-│
+├── README.md
 └── screenshots/
     ├── 01-lambda-function.png
-    ├── 02-lambda-code.png
-    ├── 03-lambda-test.png
-    ├── 04-api-gateway-route.png
-    ├── 05-api-gateway-integration.png
-    └── 06-web-app-response.png
+    ├── 02-lambda-test.png
+    ├── 03-api-gateway-route.png
+    ├── 04-api-gateway-integration.png
+    └── 05-web-app-response.png
 ```
 
 ## Lambda Function
