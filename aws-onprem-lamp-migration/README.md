@@ -6,6 +6,9 @@ Hands-on project demonstrating the migration of a small **Linux LAMP application
 
 ### Migration
 
+![On-Premises LAMP Application to AWS Migration](./architecture/architecture-diagram.png)
+
+
 ```text
 On-Premises
 Amazon Linux
