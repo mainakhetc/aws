@@ -8,19 +8,6 @@ Hands-on project demonstrating the migration of a small **Linux LAMP application
 
 ![On-Premises LAMP Application to AWS Migration](./architecture/architecture-diagram.png)
 
-
-```text
-On-Premises
-Amazon Linux
-Apache + PHP + MySQL
-        │
-        │ Application + DB Migration
-        ▼
-AWS VPC
- ├── EC2 — Apache + PHP + PHP-FPM
- └── RDS — MySQL
-```
-
 ## AWS Architecture
 
 * **VPC:** `10.0.0.0/16`
